@@ -3,135 +3,812 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consulta de Notas — Programación III</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Condiciones Recuperatorio - Programación III</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+      color: #1f2937;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: #ffffff;
+      padding: 34px 26px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 26px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 0.2px;
+    }
+
+    .header p {
+      margin: 10px 0 0 0;
+      font-size: 20px;
+      color: #d1d5db;
+    }
+
+    .big-block-title {
+      padding: 26px 24px;
+      border-radius: 16px;
+      color: #ffffff;
+      margin: 34px 0 22px 0;
+      box-shadow: 0 7px 18px rgba(0,0,0,0.14);
+    }
+
+    .big-block-title h2 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .big-block-title p {
+      margin: 8px 0 0 0;
+      color: #f3f4f6;
+      font-size: 17px;
+    }
+
+    .partial-title {
+      background: linear-gradient(135deg, #1d4ed8, #111827);
+    }
+
+    .quiz-title {
+      background: linear-gradient(135deg, #be185d, #111827);
+    }
+
+    .section {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      border-left: 8px solid #2563eb;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #111827;
+      font-size: 25px;
+    }
+
+    .section h3 {
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 19px;
+    }
+
+    .blue { border-left-color: #2563eb; }
+    .purple { border-left-color: #7c3aed; }
+    .green { border-left-color: #059669; }
+    .orange { border-left-color: #f59e0b; }
+    .teal { border-left-color: #0891b2; }
+    .gray { border-left-color: #4b5563; }
+    .pink { border-left-color: #db2777; }
+
+    .info-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+    }
+
+    .warning-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+    }
+
+    .danger-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      color: #7f1d1d;
+    }
+
+    ul {
+      margin-top: 8px;
+      padding-left: 24px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .mini-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .mini-card h4 {
+      margin: 0 0 10px 0;
+      color: #111827;
+      font-size: 18px;
+    }
+
+    .mini-card p { margin: 0; }
+
+    .direct-title {
+      background: #7f1d1d;
+      color: #ffffff;
+      padding: 28px 24px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(127,29,29,0.25);
+    }
+
+    .direct-title h2 {
+      margin: 0 0 8px 0;
+      font-size: 29px;
+    }
+
+    .direct-title p {
+      margin: 0;
+      font-size: 17px;
+      color: #fee2e2;
+    }
+
+    .fail-list {
+      background: #ffffff;
+      border: 3px solid #dc2626;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .fail-item {
+      background: #fee2e2;
+      border-left: 7px solid #dc2626;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .fail-item:last-child { margin-bottom: 0; }
+
+    .fail-item h3 {
+      margin: 0 0 8px 0;
+      color: #991b1b;
+      font-size: 20px;
+    }
+
+    .fail-item p {
+      margin: 0;
+      color: #3f1d1d;
+    }
+
+    .summary {
+      background: #111827;
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      color: #ffffff;
+    }
+
+    .summary p { color: #e5e7eb; }
+
+    .tag {
+      display: inline-block;
+      background: #e5e7eb;
+      color: #111827;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-right: 6px;
+    }
+
+    strong { color: inherit; }
+
+    @media (max-width: 760px) {
+      .header h1 { font-size: 25px; }
+      .header p { font-size: 17px; }
+      .big-block-title h2 { font-size: 24px; }
+      .section { padding: 18px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #ffffff; }
+      .page { max-width: none; padding: 0; }
+      .section, .fail-list, .summary, .header, .big-block-title { box-shadow: none; }
+    }
+  </style>
 </head>
 <body>
-  <div class="contenedor">
 
-    <!-- ================= Pantalla de acceso ================= -->
-    <section id="pantalla-login">
-      <header class="encabezado">
-        <p class="institucion" id="institucion">UTN FRC</p>
-        <h1 id="materia">Programación III</h1>
-        <p class="actualizacion" id="fecha-actualizacion">Cargando datos…</p>
-      </header>
+  <main class="page">
 
-      <form class="buscador" id="form-busqueda">
-        <input type="text" id="input-legajo" placeholder="Ingresá tu legajo"
-               inputmode="numeric" autocomplete="off" autofocus>
-        <button type="submit" id="btn-buscar">Consultar</button>
-      </form>
-      <p class="ayuda">Solo se muestra la información correspondiente al legajo ingresado.</p>
+    <header class="header">
+      <h1>Condiciones para aprobar el Recuperatorio</h1>
+      <p>Programación III</p>
+    </header>
 
-      <p class="mensaje oculto" id="mensaje"></p>
+    <div class="big-block-title partial-title">
+      <h2>A. Recuperatorio de parciales</h2>
+      <p>
+        Incluye las condiciones del examen teórico y de la parte práctica integradora.
+      </p>
+    </div>
+
+    <section class="section blue">
+      <h2>A.1. Parte teórica</h2>
+
+      <h3>Estudiantes con nota final 2 (dos)</h3>
+
+      <p>
+        Deberá recuperar todo aquel estudiante cuya nota final haya sido <strong>2 (dos)</strong>.
+        En este caso, deberá rendir el examen completo aplazado, es decir, un examen integrador
+        con todos los temas vistos en la materia.
+      </p>
+
+      <p>El examen teórico será de <strong>20 preguntas</strong>:</p>
+
+      <ul>
+        <li><strong>10 preguntas de Frontend.</strong></li>
+        <li><strong>10 preguntas de Backend.</strong></li>
+      </ul>
+
+      <p>
+        Para pasar a la parte práctica, deberá tener como mínimo el <strong>60% aprobado</strong>.
+      </p>
+
+      <p>Esto significa que deberá responder correctamente:</p>
+
+      <ul>
+        <li><strong>6 preguntas de Frontend.</strong></li>
+        <li><strong>6 preguntas de Backend.</strong></li>
+      </ul>
+
+      <div class="info-box">
+        <strong>Importante:</strong> no alcanza solo con llegar al 60% general.
+        Debe cumplir el mínimo obligatorio en ambas partes.
+      </div>
+    </section>
+
+    <section class="section purple">
+      <h2>A.2. Teórico reducido</h2>
+
+      <h3>Estudiantes que aprobaron uno de los dos exámenes del cursado</h3>
+
+      <p>
+        En el caso de haber aprobado uno de los dos exámenes del cursado, con nota final
+        <strong>6 (seis) o más</strong>, se tomará como aprobado ese examen completo.
+      </p>
+
+      <p>
+        En este caso, <strong>solo en el teórico</strong>, se le reconocerá la parte que le fue bien.
+        Por lo tanto, el estudiante deberá rendir únicamente el teórico correspondiente al examen
+        que le fue mal.
+      </p>
+
+      <p>Este teórico será de <strong>10 preguntas</strong>:</p>
+
+      <ul>
+        <li><strong>5 preguntas de Frontend.</strong></li>
+        <li><strong>5 preguntas de Backend.</strong></li>
+      </ul>
+
+      <p>
+        Para pasar a la parte práctica, deberá tener como mínimo el <strong>60% aprobado</strong>.
+      </p>
+
+      <p>Esto significa que deberá responder correctamente:</p>
+
+      <ul>
+        <li><strong>3 preguntas de Frontend.</strong></li>
+        <li><strong>3 preguntas de Backend.</strong></li>
+      </ul>
+
+      <div class="info-box">
+        <strong>Importante:</strong> no alcanza solo con llegar al 60% general.
+        Debe cumplir el mínimo obligatorio en ambas partes.
+      </div>
+    </section>
+
+    <section class="section green">
+      <h2>A.3. Parte práctica integradora</h2>
+
+      <p>
+        El examen práctico será <strong>integrador para todos los estudiantes que rindan recuperatorio</strong>,
+        tanto para quienes recuperen un solo examen como para quienes recuperen los dos.
+      </p>
+
+      <p>
+        Esto se debe a que en la parte práctica se evalúan <strong>todos los temas vistos durante la materia</strong>.
+      </p>
+
+      <p>
+        Por lo tanto, aunque el estudiante haya aprobado uno de los exámenes del cursado,
+        la parte práctica <strong>no se divide por parcial</strong>. La práctica será integradora.
+      </p>
+
+      <div class="warning-box">
+        <strong>Aclaración:</strong> el teórico puede ser completo o reducido según la situación del estudiante,
+        pero la práctica es integradora en todos los casos.
+      </div>
+    </section>
+
+    <section class="section orange">
+      <h2>A.4. Consideraciones de Backend, API y juego</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h4>Compilación y ejecución</h4>
+          <p>
+            Se verificará que el backend compile y ejecute correctamente, sin errores de build,
+            sin problemas que bloqueen la ejecución y sin fallas que impidan levantar la aplicación.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Testing obligatorio</h4>
+          <p>
+            El testing obligatorio corresponde al backend. No se evaluarán tests de frontend,
+            porque no fueron dados como contenido obligatorio de la materia.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Cobertura JaCoCo</h4>
+          <p>
+            Se controlará el cumplimiento de la cobertura mínima obligatoria del
+            <strong>95% mediante JaCoCo</strong> sobre el backend. Si la cobertura está por debajo del mínimo,
+            si los tests no compilan, si hay tests fallidos o si no hay tests, se considera una falta importante.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Reglas del juego</h4>
+          <p>
+            Se corregirá que las reglas del juego estén implementadas según el enunciado:
+            vidas, tablero, zonas especiales, dados, turnos, condiciones de victoria, desempates
+            y demás comportamientos centrales solicitados.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Segunda parte del trabajo</h4>
+          <p>
+            Se revisará especialmente la segunda parte del trabajo, ya que forma parte de los contenidos
+            que deben estar correctamente integrados en la solución final.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Arquitectura backend</h4>
+          <p>
+            Se evaluará la separación correcta entre controller, service, dominio y repositorios.
+            La lógica de negocio no debe quedar mezclada en los controladores.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Patrones de diseño</h4>
+          <p>
+            Se valorará el uso adecuado de patrones como
+            <strong>Strategy, Factory, State, Registry o Chain of Responsibility</strong>,
+            siempre que estén correctamente aplicados y aporten a la solución.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>API y validaciones</h4>
+          <p>
+            Se corregirán validaciones de DTOs, manejo correcto de errores, uso de <strong>@Valid</strong>,
+            respuestas HTTP adecuadas, autenticación, autorización y ownership de partidas.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Persistencia real</h4>
+          <p>
+            Se controlará que las entidades del juego se persistan correctamente y que el sistema
+            no funcione solo con datos simulados, estructuras temporales o información fija en memoria.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Seguridad</h4>
+          <p>
+            Se descontarán problemas como contraseñas en texto plano, exposición de entidades completas
+            en respuestas REST, devolución de passwords, autenticación falsificable,
+            secretos JWT expuestos o endpoints sin protección.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section teal">
+      <h2>A.5. Consideraciones de Frontend</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h4>Interacción con el sistema</h4>
+          <p>
+            Se controla que la aplicación permita al usuario interactuar correctamente con el sistema
+            y que represente de forma clara el funcionamiento esperado.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Pantallas principales</h4>
+          <p>
+            Se evalúa que las pantallas principales estén desarrolladas, que la navegación sea coherente
+            y que el usuario pueda realizar las acciones necesarias sin quedar bloqueado.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Comunicación con backend</h4>
+          <p>
+            Se controla que el frontend se comunique correctamente con el backend mediante los servicios
+            correspondientes, consumiendo datos reales y no información simulada o fija.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Formularios y validaciones</h4>
+          <p>
+            Se revisa que los formularios tengan validaciones básicas, que no permitan enviar datos
+            incompletos o inválidos, y que los mensajes de error sean claros para el usuario.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Estados del sistema</h4>
+          <p>
+            Se evalúa que la interfaz muestre correctamente información cargada, resultados de acciones,
+            errores, confirmaciones y cambios producidos luego de operar.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Organización Angular</h4>
+          <p>
+            Se tendrá en cuenta la separación en componentes, servicios, modelos/interfaces, rutas
+            y módulos o estructura equivalente. No debería estar toda la lógica mezclada en un único componente.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Rutas y sesión</h4>
+          <p>
+            Se controla el uso correcto de rutas, guards si corresponden, manejo de sesión o token,
+            y persistencia mínima de la autenticación cuando el sistema lo requiere.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Presentación general</h4>
+          <p>
+            Se evalúa el diseño prolijo, textos claros, botones entendibles,
+            ausencia de errores visibles en consola y una experiencia de uso razonable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gray">
+      <h2>A.6. Estructura obligatoria del proyecto</h2>
+
+      <p>
+        El proyecto deberá respetar el <strong>scaffolding</strong> y la estructura de carpetas trabajada en clase,
+        tanto para el frontend como para el backend.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h4>Estructura Backend</h4>
+          <p>
+            El backend deberá mantener una organización coherente según lo visto en clase,
+            separando responsabilidades entre controladores, servicios, dominio, repositorios,
+            DTOs, configuraciones, excepciones y demás paquetes necesarios.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Estructura Frontend</h4>
+          <p>
+            El frontend deberá respetar la estructura Angular indicada en clase,
+            separando componentes, servicios, modelos/interfaces, rutas, guards y módulos
+            o estructura equivalente definida para el proyecto.
+          </p>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>Importante:</strong> no se considerará correcta una entrega donde toda la lógica quede mezclada,
+        sin separación de responsabilidades o con una estructura incompatible con la forma de trabajo indicada en clase.
+      </div>
+    </section>
+
+    <div class="direct-title">
+      <h2>A.7. Desaprobación directa en la parte práctica</h2>
+      <p>
+        Los siguientes casos implican desaprobación directa del recuperatorio práctico.
+        En estas situaciones, el proyecto no cumple las condiciones mínimas para ser evaluado o aprobado.
+      </p>
+    </div>
+
+    <section class="fail-list">
+
+      <article class="fail-item">
+        <h3>No se recibió entrega</h3>
+        <p>Desaprueba directo. No hay nada que corregir.</p>
+      </article>
+
+      <article class="fail-item">
+        <h3>El proyecto no compila o no ejecuta</h3>
+        <p>
+          Si Maven falla, si los tests de backend no compilan, si hay ciclos infinitos que bloquean la suite
+          o si la aplicación no levanta, el proyecto no es evaluable.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>No hay tests escritos en backend</h3>
+        <p>
+          Desaprueba directo, especialmente si la consigna exigía cobertura.
+          Sin tests de backend no se puede validar comportamiento ni calidad mínima.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>No cumple el 95% de cobertura obligatorio en backend</h3>
+        <p>
+          Si el 95% era condición obligatoria, una cobertura de 92%, 89%, 81%, 77%, 75%, 73% o 72%
+          desaprueba. No es “casi”; es por debajo del mínimo obligatorio.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>Hay tests fallidos en backend</h3>
+        <p>
+          Si hay tests fallando, el recuperatorio no debería aprobar.
+          Más todavía si hay muchos tests fallidos o si falla una prueba central del juego.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>El backend no persiste las entidades del juego</h3>
+        <p>
+          Esto es grave y desaprueba. Si el juego no persiste estado real,
+          no cumple la base funcional del backend.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>El juego no implementa reglas centrales del enunciado</h3>
+        <p>
+          Por ejemplo: vidas iniciales incorrectas, tablero mal construido, zonas especiales que nunca se usan,
+          dados con valores incorrectos, condiciones de victoria incompletas o desempates faltantes.
+          Si falla el corazón del juego, no alcanza con tener una arquitectura linda.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>La aplicación no funciona end-to-end</h3>
+        <p>
+          Errores de CORS que impiden comunicar frontend y backend, endpoints que no permiten jugar,
+          turnos que no avanzan o creación de partida rota desaprueban si impiden usar el sistema.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>Se bajó artificialmente el umbral de cobertura</h3>
+        <p>
+          Esto es desaprobación directa. No es un error técnico:
+          es esquivar una condición explícita de la consigna.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>Se usó una herramienta distinta a la exigida y se rompe la consigna base</h3>
+        <p>
+          Por ejemplo, si se pidió Maven y entregaron Gradle, junto con ausencia de tests
+          o estructura incompatible, desaprueba.
+        </p>
+      </article>
+
+      <article class="fail-item">
+        <h3>No se respeta la estructura base indicada en clase</h3>
+        <p>
+          Si la estructura del frontend o del backend es incompatible con el scaffolding trabajado en clase
+          y eso impide corregir, ejecutar o entender correctamente la solución, puede implicar desaprobación directa.
+        </p>
+      </article>
 
     </section>
 
-    <!-- ================= Pantalla de resultado ================= -->
-    <section class="oculto" id="pantalla-resultado">
+    <div class="big-block-title quiz-title">
+      <h2>B. Recuperatorio de cuestionarios</h2>
+      <p>
+        Incluye las condiciones para recuperar cuestionarios y regularizar la materia.
+      </p>
+    </div>
 
-      <div class="barra-superior">
-        <p class="institucion">Consulta de notas</p>
-        <button type="button" class="btn-secundario" id="btn-nueva-consulta">Nueva consulta</button>
-      </div>
+    <section class="section pink">
+      <h2>B.1. Condiciones generales de cuestionarios</h2>
 
-      <!-- Datos del alumno + Notas principales (50/50) -->
-      <div class="fila-50">
-      <div class="tarjeta">
-        <h3>Datos del alumno</h3>
-        <dl class="datos-alumno">
-          <div><dt>Legajo</dt><dd id="dato-legajo"></dd></div>
-          <div><dt>Apellido y nombre</dt><dd id="dato-nombre"></dd></div>
-          <div><dt>Comisión</dt><dd id="dato-comision"></dd></div>
-          <div><dt>Materia</dt><dd id="dato-materia"></dd></div>
-          <div><dt>Última actualización</dt><dd id="dato-fecha"></dd></div>
-        </dl>
-      </div>
+      <p>
+        Recordar que la nota de los cuestionarios se obtiene a partir de la suma y promedio de todos
+        los cuestionarios correspondientes. Para regularizar, el promedio final de cuestionarios debe ser
+        <strong>6 (seis) o más</strong>.
+      </p>
 
-      <!-- Notas principales -->
-      <div class="tarjeta">
-        <h3>Notas principales</h3>
-        <ul class="lista-notas" id="lista-notas-principales"></ul>
-        <div class="nota-redondeo">
-          <p><strong>Nota sobre redondeo:</strong> el criterio aplica solamente para la nota final de cuestionarios.</p>
-          <p>Toda nota con decimal igual o superior a .50 se redondea al número entero inmediato superior. Toda nota con decimal igual o inferior a .49 se redondea al número entero inferior.</p>
-          <p><strong>Ejemplos:</strong> 5.50 se redondea a 6 y se considera aprobada. 5.49 se redondea a 5 y no alcanza la condición de aprobación.</p>
+      <div class="grid">
+        <div class="mini-card">
+          <h4>Condición de regularidad</h4>
+          <p>
+            La condición mínima para regularizar es alcanzar un promedio final de
+            <strong>6 (seis) o más</strong> entre los cuestionarios.
+          </p>
         </div>
-      </div>
-      </div>
 
-      <!-- Detalle de cuestionarios -->
-      <div class="tarjeta tarjeta-detalle">
-        <details id="detalle-cuestionarios">
-          <summary>
-            <span>Detalle de cuestionarios <span class="ayuda-inline">(información complementaria)</span></span>
-            <span class="accion-detalle">Ver detalle</span>
-          </summary>
-          <div class="detalle-columnas">
-            <div>
-              <p class="titulo-columna">Frontend</p>
-              <ul class="lista-notas" id="lista-cuestionarios-fe"></ul>
-            </div>
-            <div>
-              <p class="titulo-columna">Backend</p>
-              <ul class="lista-notas" id="lista-cuestionarios-be"></ul>
-            </div>
-          </div>
-        </details>
-      </div>
-
-      <!-- Resumen y recomendación -->
-      <div class="condicion" id="condicion">
-        <p class="etiqueta">Resumen y recomendación académica</p>
-        <p class="valor" id="condicion-valor"></p>
-        <p class="parrafo" id="condicion-motivo"></p>
-        <div class="instancias">
-          <div id="bloque-aprobadas">
-            <p class="subtitulo">Instancias aprobadas</p>
-            <ul id="lista-aprobadas"></ul>
-          </div>
-          <div id="bloque-recuperar">
-            <p class="subtitulo">Instancias a recuperar</p>
-            <ul id="lista-recuperar"></ul>
-          </div>
+        <div class="mini-card">
+          <h4>Sin acceso a promoción</h4>
+          <p>
+            Quien recupera cuestionarios no accede a promoción. El recuperatorio de cuestionarios
+            sirve para regularizar, no para subir nota con el objetivo de promocionar.
+          </p>
         </div>
-        <p class="parrafo recomendacion" id="condicion-recomendacion"></p>
-      </div>
 
-      <div class="tarjeta temas-recuperacion">
-        <h3>Temas a recuperar cuestionarios</h3>
-        <div class="temas-grid">
-          <div>
-            <h4>Frontend</h4>
-            <ul>
-              <li><strong>C1:</strong> Repaso de HTML, CSS y Accesibilidad (Unidad 1)</li>
-              <li><strong>C2:</strong> JavaScript y DOM (Unidad 1)</li>
-              <li><strong>C3:</strong> Integrador de Unidad 1 (Unidad 1)</li>
-              <li><strong>C4:</strong> TypeScript completo (Unidad 2)</li>
-              <li><strong>C5:</strong> Introducción a Angular: SPA, comandos y componentes (Unidad 3)</li>
-              <li><strong>C6:</strong> Ciclo de vida, databinding, directivas y pipes (Unidad 3)</li>
-              <li><strong>C7:</strong> Comunicación entre componentes, routing y lazy loading (Unidad 3)</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Backend</h4>
-            <ul>
-              <li><strong>C1:</strong> Lenguaje Java, colecciones y Maven (Unidad 1)</li>
-              <li><strong>C2:</strong> Programación Orientada a Objetos y SOLID (Unidad 2)</li>
-              <li><strong>C3:</strong> Algoritmos (Unidad 3)</li>
-              <li><strong>C4:</strong> Patrones de diseño (Unidad 4)</li>
-              <li><strong>C5:</strong> Spring Boot y microservicios (Unidad 5)</li>
-            </ul>
-          </div>
+        <div class="mini-card">
+          <h4>La nueva resolución pisa la nota anterior</h4>
+          <p>
+            Al ingresar a resolver un cuestionario, la nota obtenida reemplaza la nota anterior
+            de ese cuestionario. La nota final puede quedar igual, subir o bajar.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Cantidad de cuestionarios a recuperar</h4>
+          <p>
+            Se podrán recuperar todos los cuestionarios que el estudiante considere necesarios,
+            respetando las condiciones y el tiempo habilitado.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Tiempo total habilitado</h4>
+          <p>
+            Los cuestionarios estarán habilitados durante <strong>10 minutos en total</strong>.
+            Dentro de ese tiempo, cada estudiante podrá ingresar una vez al cuestionario que decida recuperar.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h4>Corte por tiempo</h4>
+          <p>
+            Si el estudiante está resolviendo un cuestionario y finaliza el tiempo habilitado,
+            el cuestionario se cortará y se tomará la nota registrada hasta ese momento.
+          </p>
         </div>
       </div>
 
+      <div class="danger-box">
+        <strong>Importante:</strong> ingresar a un cuestionario recuperatorio implica aceptar que la nueva nota
+        reemplaza la nota anterior. No se conserva automáticamente la mejor nota.
+      </div>
     </section>
 
-  </div>
 
-  <script src="data/notas-programacion-iii.local.js"></script>
-  <script src="script.js"></script>
+    <section class="section pink">
+      <h2>B.2. Listado de cuestionarios a recuperar</h2>
+
+      <p>
+        El recuperatorio de cuestionarios puede corresponder a contenidos de Frontend y/o Backend,
+        según la situación académica de cada estudiante. El estudiante deberá recuperar los cuestionarios
+        que correspondan para alcanzar la condición mínima requerida.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h4>Frontend</h4>
+          <ul>
+            <li><strong>Cuestionario 1:</strong> Repaso de HTML, CSS y Accesibilidad <strong>(Unidad 1)</strong>.</li>
+            <li><strong>Cuestionario 2:</strong> JavaScript y DOM <strong>(Unidad 1)</strong>.</li>
+            <li><strong>Cuestionario 3:</strong> Integrador de Unidad 1 <strong>(Unidad 1)</strong>.</li>
+            <li><strong>Cuestionario 4:</strong> TypeScript completo <strong>(Unidad 2)</strong>.</li>
+            <li><strong>Cuestionario 5:</strong> Introducción a Angular: SPA, comandos y componentes <strong>(Unidad 3)</strong>.</li>
+            <li><strong>Cuestionario 6:</strong> Ciclo de vida, databinding, directivas y pipes <strong>(Unidad 3)</strong>.</li>
+            <li><strong>Cuestionario 7:</strong> Comunicación entre componentes, routing y lazy loading <strong>(Unidad 3)</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="mini-card">
+          <h4>Backend</h4>
+          <ul>
+            <li><strong>Cuestionario 1:</strong> Lenguaje Java, colecciones y Maven <strong>(Unidad 1)</strong>.</li>
+            <li><strong>Cuestionario 2:</strong> Programación Orientada a Objetos y SOLID <strong>(Unidad 2)</strong>.</li>
+            <li><strong>Cuestionario 3:</strong> Algoritmos <strong>(Unidad 3)</strong>.</li>
+            <li><strong>Cuestionario 4:</strong> Patrones de diseño <strong>(Unidad 4)</strong>.</li>
+            <li><strong>Cuestionario 5:</strong> Spring Boot y microservicios <strong>(Unidad 5)</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>Aclaración:</strong> el listado indica los cuestionarios disponibles para recuperar.
+        Cada estudiante deberá revisar cuáles necesita recuperar según sus notas y su promedio final.
+      </div>
+    </section>
+
+    <section class="summary">
+      <h2>Resumen final</h2>
+
+      <p>
+        <span class="tag">Recuperatorio de parciales</span>
+        Incluye teórico y práctico. El práctico es integrador para todos los casos.
+      </p>
+
+      <p>
+        <span class="tag">Cuestionarios</span>
+        Para regularizar se requiere promedio final 6 o más. Recuperar cuestionarios no habilita promoción
+        ni permite subir nota para promocionar.
+      </p>
+
+      <p>
+        <span class="tag">Backend</span>
+        Debe compilar, ejecutar, cumplir cobertura del 95% con JaCoCo, tener tests válidos,
+        respetar reglas del juego, persistir datos reales y exponer una API correcta y segura.
+      </p>
+
+      <p>
+        <span class="tag">Frontend</span>
+        Debe permitir una interacción clara, consumir datos reales del backend, validar formularios,
+        mostrar estados del sistema y estar organizado correctamente en Angular.
+      </p>
+
+      <p>
+        <span class="tag">Estructura</span>
+        Tanto frontend como backend deben respetar el scaffolding y la estructura de carpetas dados en clase.
+      </p>
+
+      <p>
+        Para aprobar, no alcanza con que el proyecto “más o menos funcione”.
+        Debe cumplir la consigna técnica solicitada y funcionar correctamente de extremo a extremo.
+      </p>
+    </section>
+
+  </main>
+
 </body>
 </html>
