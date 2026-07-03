@@ -157,6 +157,16 @@
 
     .mini-card p { margin: 0; }
 
+    .backend-structure-highlight {
+      background: #ecfeff;
+      border: 2px solid #0891b2;
+      box-shadow: 0 4px 14px rgba(8,145,178,0.16);
+    }
+
+    .backend-structure-highlight h4 {
+      color: #0e7490;
+    }
+
     .direct-title {
       background: #7f1d1d;
       color: #ffffff;
@@ -414,7 +424,7 @@
         <div class="mini-card">
           <h4>Arquitectura backend</h4>
           <p>
-            Se evaluará la separación correcta entre controller, service, dominio y repositorios.
+            Se evaluará la separación correcta entre controller, service, entidades y repositorios.
             La lógica de negocio no debe quedar mezclada en los controladores.
           </p>
         </div>
@@ -534,11 +544,11 @@
       </p>
 
       <div class="grid">
-        <div class="mini-card">
+        <div class="mini-card backend-structure-highlight">
           <h4>Estructura Backend</h4>
           <p>
             El backend deberá mantener una organización coherente según lo visto en clase,
-            separando responsabilidades entre controladores, servicios, dominio, repositorios,
+            separando responsabilidades entre controladores, servicios, entidades, repositorios,
             DTOs, configuraciones, excepciones y demás paquetes necesarios.
           </p>
         </div>
